@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Update Task</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+
+            font-family: Arial, sans-serif;
+            background: #f4f7fc;
+            padding: 40px;
+        }
+
+        .container{
+
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h1{
+
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        input,
+        textarea,
+        select{
+
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        textarea{
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-group{
+
+            display: flex;
+            gap: 15px;
+        }
+
+        button{
+
+            padding: 14px 22px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            color: white;
+        }
+
+        .update-btn{
+            background: #2196F3;
+        }
+
+        .back-btn{
+            background: #555;
+        }
+
+        button:hover{
+            opacity: 0.9;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Update Task</h1>
+
+    <form action="/update_task/{{ task.id }}"
+          method="POST">
+
+        <input type="text"
+               name="title"
+               value="{{ task.title }}"
+               required>
+
+        <textarea name="description"
+                  required>{{ task.description }}</textarea>
+
+        <select name="priority">
+
+            <option value="High"
+                {% if task.priority == 'High' %}
+                    selected
+                {% endif %}
+            >
+                High
+            </option>
+
+            <option value="Medium"
+                {% if task.priority == 'Medium' %}
+                    selected
+                {% endif %}
+            >
+                Medium
+            </option>
+
+            <option value="Low"
+                {% if task.priority == 'Low' %}
+                    selected
+                {% endif %}
+            >
+                Low
+            </option>
+
+        </select>
+
+        <select name="status">
+
+            <option value="Pending"
+                {% if task.status == 'Pending' %}
+                    selected
+                {% endif %}
+            >
+                Pending
+            </option>
+
+            <option value="Completed"
+                {% if task.status == 'Completed' %}
+                    selected
+                {% endif %}
+            >
+                Completed
+            </option>
+
+        </select>
+
+        <div class="btn-group">
+
+            <button type="submit"
+                    class="update-btn">
+
+                Update Task
+
+            </button>
+
+            <button type="button"
+                    class="back-btn"
+                    onclick="window.history.back()">
+
+                Back
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

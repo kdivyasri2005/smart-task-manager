@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Task</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family: Arial;
+            background:#f4f7fc;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .container{
+
+            width:90%;
+            max-width:600px;
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1{
+            margin-bottom:25px;
+            text-align:center;
+        }
+
+        input,
+        textarea,
+        select{
+
+            width:100%;
+            padding:14px;
+            margin-bottom:18px;
+            border:1px solid #ccc;
+            border-radius:8px;
+        }
+
+        button{
+
+            width:100%;
+            padding:14px;
+            border:none;
+            border-radius:8px;
+            background:#4CAF50;
+            color:white;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        .back-btn{
+
+            margin-top:15px;
+            background:#333;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Add New Task</h1>
+
+    <input type="text"
+           id="title"
+           placeholder="Task Title">
+
+    <textarea id="description"
+              placeholder="Task Description"></textarea>
+
+    <select id="priority">
+
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+
+    </select>
+
+    <select id="status">
+
+        <option value="Pending">Pending</option>
+        <option value="Completed">Completed</option>
+
+    </select>
+
+    <button onclick="addTask()">
+
+        Add Task
+
+    </button>
+
+    <button class="back-btn"
+            onclick="window.location.href='/dashboard'">
+
+        Back to Dashboard
+
+    </button>
+
+</div>
+
+<script>
+
+    function addTask(){
+
+        fetch('/add_task', {
+
+            method:'POST',
+
+            headers:{
+                'Content-Type':'application/json'
+            },
+
+            body:JSON.stringify({
+
+                title:
+                document.getElementById('title').value,
+
+                description:
+                document.getElementById('description').value,
+
+                priority:
+                document.getElementById('priority').value,
+
+                status:
+                document.getElementById('status').value
+            })
+        })
+
+        .then(response => response.json())
+
+        .then(data => {
+            sessionStorage.setItem(
+    'notification',
+    '✅ Task Added Successfully'
+);
+            window.location.href='/dashboard';
+        });
+    }
+
+</script>
+
+</body>
+
+</html>
